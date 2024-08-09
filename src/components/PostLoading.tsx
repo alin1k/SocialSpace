@@ -6,7 +6,7 @@ export default function PostLoading(){
   return(
     <div className="w-full border p-2 px-3 rounded-xl animate-pulse">
       <div className="flex flex-row content-center flex-wrap gap-2 mb-2">
-        <AccountCircleOutlinedIcon/>
+        <AccountCircleOutlinedIcon />
         <div className="w-1/5 h-4 bg-gray-200 rounded-full"></div>
       </div>
 
