@@ -4,10 +4,12 @@ import { PostType } from "@/types/types";
 async function getPosts(){
 
   try {
-    const res = await fetch("https://dummyjson.com/posts?limit=10");
+    const res = await fetch("https://dummyjson.com/posts?limit=10", {
+      cache: "no-store"
+    });
     if(res.status !== 200) throw new Error("Something went wrong!");
 
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    await new Promise(resolve => setTimeout(resolve, 1000))
     return res.json();
   } catch (error) {
     console.error(error)
