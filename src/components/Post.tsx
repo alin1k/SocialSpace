@@ -19,7 +19,7 @@ export default function Post({post} : {post:PostType}){
   return(
     <div className="w-full border p-2 px-3 rounded-xl">
       
-      <div className="flex flex-row content-center flex-wrap gap-2 mb-2">
+      <div className="flex flex-row content-center flex-wrap gap-1 mb-2">
         <AccountCircleOutlinedIcon/>
         <p className='font-semibold'>user{post.userId}</p>
       </div>
@@ -33,12 +33,12 @@ export default function Post({post} : {post:PostType}){
         )}
       </div>
       
-      <div className="flex flex-row gap-2">
-        <div className="flex flex-row content-center flex-wrap mt-2">
+      <div className="flex flex-row gap-4">
+        <div className="flex flex-row content-center gap-1 flex-wrap mt-2">
           <FavoriteBorderOutlinedIcon/>
           <p className="">{post.reactions.likes}</p>
         </div>
-        <div className="flex flex-row content-center flex-wrap mt-2">
+        <div className="flex flex-row content-center gap-1 flex-wrap mt-2">
           <RemoveRedEyeOutlinedIcon/>
           <p className="">{post.views}</p>
         </div>
