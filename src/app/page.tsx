@@ -7,7 +7,6 @@ async function getPosts(){
     });
     await new Promise(resolve => setTimeout(resolve, 1000))
     return res.json();
-  
 }
 
 export default async function Home() {

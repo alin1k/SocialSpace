@@ -5,6 +5,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { useEffect, useState } from 'react';
 import { PostType } from '@/types/types';
+import Link from 'next/link';
 
 export default function Post({post} : {post:PostType}){
 
@@ -17,9 +18,12 @@ export default function Post({post} : {post:PostType}){
   return(
     <div className="w-full border p-2 px-3 rounded-xl">
       
-      <div className="flex flex-row content-center flex-wrap gap-1 mb-2">
-        {isClinet && <AccountCircleOutlinedIcon/>}
-        <p className='font-semibold'>user{post.userId}</p>
+      <div className="flex flex-row content-center flex-wrap justify-between mb-2">
+        <div className="flex flex-row gap-2">
+          {isClinet && <AccountCircleOutlinedIcon/>}
+          <p className='font-semibold'>user{post.userId}</p>
+        </div>
+        <Link href={`/posts/${post.id}`} className='text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl'>See post →</Link>
       </div>
 
       <h1 className="text-xl font-semibold">{post.title}</h1>
