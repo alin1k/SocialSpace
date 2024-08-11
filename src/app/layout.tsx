@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={`${inter.className} h-full antialiased relative`}>
         <main className="flex flex-col min-h-screen">
           <Navbar/>
-          <div className="flex-grow flex-1">{children}</div>
+          <div className="w-full p-3 sm:px-8 md:px-20 lg:px-40 xl:px-64 2xl:px-96 flex-grow flex-1">{children}</div>
           <Footer/>
         </main>
       </body>
