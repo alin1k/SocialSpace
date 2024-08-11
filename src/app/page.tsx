@@ -15,7 +15,7 @@ export default async function Home() {
   const {posts} : {posts : PostType[]} = (await getPosts());
   
   return (
-    <div className="flex flex-col gap-5">
+    <div className="py-2 flex flex-col gap-5">
       {posts?.map((post : PostType) => 
         <Post post={post} key={post.id} />
       )}

@@ -6,10 +6,12 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Comment from "./Comment";
+import { useRouter } from "next/navigation";
 
 export default function PostBody({post, comments} : {post: PostType, comments: CommentType[]}) {
 
   const [isClinet, setIsClient] = useState(false);
+  const router = useRouter();
 
   useEffect(()=>{
     setIsClient(true);
@@ -17,6 +19,7 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
 
   return (
     <div className="w-full">
+      <button onClick={()=>router.back()} className="text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl mb-5">← Go back</button>
       <p className="text-xl font-semibold">{post.title}</p>
       <p className="mt-[-0.5rem]">by user{post.userId}</p>
       <p className="mt-3">{post.body}</p>
