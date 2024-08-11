@@ -7,6 +7,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Comment from "./Comment";
 import { useRouter } from "next/navigation";
+import Tag from "@/components/Tag";
 
 export default function PostBody({post, comments} : {post: PostType, comments: CommentType[]}) {
 
@@ -27,7 +28,7 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
       <div className="flex flex-row flex-wrap content-center gap-2 mt-3">
         <p>Tags:</p>
         {post.tags.map((tag, index)=>
-          <p key={post.id.toString() + index.toString()} className="px-1 bg-primary-light">#{tag}</p>
+          <Tag key={post.id.toString() + index.toString()}>{tag}</Tag>
         )}
       </div>
 

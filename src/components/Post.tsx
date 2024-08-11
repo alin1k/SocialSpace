@@ -6,6 +6,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { useEffect, useState } from 'react';
 import { PostType } from '@/types/types';
 import Link from 'next/link';
+import Tag from './Tag';
 
 export default function Post({post} : {post:PostType}){
 
@@ -31,7 +32,7 @@ export default function Post({post} : {post:PostType}){
 
       <div className="flex flex-row content-center flex-wrap gap-2 mt-2">
         {post.tags.map((tag,index)=>
-          <p key={post.id.toString() + index.toString()} className="px-1 bg-primary-light text-sm">#{tag}</p>
+          <Tag key={post.id.toString() + index.toString()} className="text-sm">{tag}</Tag>
         )}
       </div>
       
