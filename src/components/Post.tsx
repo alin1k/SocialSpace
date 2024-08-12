@@ -27,7 +27,7 @@ export default function Post({post} : {post:PostType}){
         <Link href={`/posts/${post.id}`} className='text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl'>See post →</Link>
       </div>
 
-      <h1 className="text-xl font-semibold">{post.title}</h1>
+      <h1 className="text-xl font-semibold leading-5 mb-2">{post.title}</h1>
       <p>{post.body}</p>
 
       <div className="flex flex-row content-center flex-wrap gap-2 mt-2">
