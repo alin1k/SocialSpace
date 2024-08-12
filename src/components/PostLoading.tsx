@@ -6,7 +6,6 @@ export default function PostLoading(){
   return(
     <div className="w-full border p-2 px-3 rounded-xl animate-pulse">
       <div className="flex flex-row content-center flex-wrap gap-2 mb-2">
-        <AccountCircleOutlinedIcon />
         <div className="w-1/5 h-4 bg-gray-200 rounded-full"></div>
       </div>
 
@@ -23,14 +22,8 @@ export default function PostLoading(){
       </div>
       
       <div className="flex flex-row gap-2">
-        <div className="flex flex-row content-center flex-wrap mt-2">
-          <FavoriteBorderOutlinedIcon/>
-          <div className="w-10 h-3 bg-gray-200 rounded-full mt-2"></div>
-        </div>
-        <div className="flex flex-row content-center flex-wrap mt-2">
-          <RemoveRedEyeOutlinedIcon/>
-          <div className="w-10 h-3 bg-gray-200 rounded-full mt-2"></div>
-        </div>
+        <div className="w-10 h-3 bg-gray-200 rounded-full mt-2"></div>
+        <div className="w-10 h-3 bg-gray-200 rounded-full mt-2"></div>
       </div>
     </div>
   )

@@ -17,7 +17,7 @@ export default function Post({post} : {post:PostType}){
   }, [])
 
   return(
-    <div className="w-full border p-2 px-3 rounded-xl">
+    <div className="w-full border p-3 rounded-xl">
       
       <div className="flex flex-row content-center flex-wrap justify-between mb-2">
         <div className="flex flex-row gap-2">
