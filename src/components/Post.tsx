@@ -32,7 +32,7 @@ export default function Post({post} : {post:PostType}){
 
       <div className="flex flex-row content-center flex-wrap gap-2 mt-2">
         {post.tags.map((tag,index)=>
-          <Tag key={post.id.toString() + index.toString()} className="text-sm">{tag}</Tag>
+          <Tag key={post.id.toString() + "tag" + index.toString()} className="text-sm">{tag}</Tag>
         )}
       </div>
       

@@ -17,7 +17,9 @@ export default function TagList({tags} : {tags: string[]}) {
     <div className="flex flex-col">
       <div className="flex flex-row flex-wrap gap-2 mt-3">
         {tagList.map((tag : string, index: number)=>
-          <Tag key={index}>{tag}</Tag>
+          <div key={`tag${index}`} onClick={()=>setDropDown(prev => !prev? prev : !prev)}>
+            <Tag>{tag}</Tag>
+          </div>
         )}
       </div>
       <button className="mt-3 flex-start w-fit" onClick={()=>setDropDown(prev => !prev)}>{dropDown? 'See less' : 'See more...'}</button>
