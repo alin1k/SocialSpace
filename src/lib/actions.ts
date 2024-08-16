@@ -3,7 +3,7 @@
 import { CommentType, PostType } from "@/types/types";
 import { redirect, notFound } from "next/navigation"
 
-export const getPosts = async () : Promise<PostType[]> =>{
+export const getPosts = async ()=>{
   const res = await fetch("https://dummyjson.com/posts?limit=10", {
     cache: "no-store"
   });
@@ -11,7 +11,7 @@ export const getPosts = async () : Promise<PostType[]> =>{
   return res.json();
 }
 
-export const getPostById = async (postId: string) : Promise<PostType> =>{
+export const getPostById = async (postId: string)=>{
   const res = await fetch(`https://dummyjson.com/posts/${postId}`, {
     cache: "no-store"
   });
@@ -22,7 +22,7 @@ export const getPostById = async (postId: string) : Promise<PostType> =>{
   return res.json();
 }
 
-export const getPostCommentsById= async (postId : string) : Promise<CommentType[] | any>=>{
+export const getPostCommentsById= async (postId : string)=>{
 
   const res = await fetch(`https://dummyjson.com/posts/${postId}/comments`, {
     cache: "no-store"
@@ -34,7 +34,7 @@ export const getPostCommentsById= async (postId : string) : Promise<CommentType[
   return res.json();
 }
 
-export const getAllTags = async () : Promise<string[]>=>{
+export const getAllTags = async ()=>{
   const res = await fetch('https://dummyjson.com/posts/tag-list', {
     cache: 'no-store'
   })
