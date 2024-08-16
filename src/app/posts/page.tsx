@@ -1,50 +1,18 @@
 import { Metadata } from "next"
-import { redirect } from "next/navigation"
 import TagList from "./components/TagList"
 import Post from "@/components/Post"
 import { PostType } from "@/types/types"
 import SearchField from "./components/SearchField"
+import { 
+  getAllTags, 
+  getPostsByTag, 
+  getPostsBySearchKeyword, 
+  getSearchKeyword 
+} from "@/lib/actions"
+import { isSearchParamsEmpty } from "@/lib/utils"
 
 export const metadata : Metadata = {
   title: "Posts"
-}
-
-const getAllTags = async ()=>{
-  const res = await fetch('https://dummyjson.com/posts/tag-list', {
-    cache: 'no-store'
-  })
-
-  return res.json();
-}
-
-const getPostsByTag = async (tag : string) =>{
-  const res = await fetch(`https://dummyjson.com/posts/tag/${tag}?limit=0`, {
-    cache: 'no-store'
-  })
-
-  return res.json();
-}
-
-const getPostsBySearchKeyword = async (keyword: string) =>{
-  const res = await fetch(`https://dummyjson.com/posts/search?q=${keyword}&limit=0`, {
-    cache: 'no-store'
-  }) 
-
-  return res.json();
-}
-
-const getSearchKeyword = async (formData: FormData)=>{
-  "use server"
-
-  const keyword = formData.get("search"); 
-  redirect(`/posts/?search=${keyword}`)
-}
-
-const isSearchParamsEmpty = (searchParams: {tags? : string, search? : string}) : boolean =>{
-  return (
-    searchParams &&
-    Object.keys(searchParams).length === 0
-  )
 }
 
 const searchPosts = async (searchParams : {tags?: string | undefined, search?: string | undefined}) =>{

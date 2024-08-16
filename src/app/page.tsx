@@ -1,14 +1,7 @@
 import Post from "@/components/Post";
 import { PostType } from "@/types/types";
 import Link from "next/link";
-
-async function getPosts(){
-    const res = await fetch("https://dummyjson.com/posts?limit=10", {
-      cache: "no-store"
-    });
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    return res.json();
-}
+import { getPosts } from "@/lib/actions";
 
 export default async function Home() {
 
