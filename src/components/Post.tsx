@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { PostType } from '@/types/types';
 import Link from 'next/link';
 import Tag from './Tag';
+import LikeButton from './LikeButton';
 
 export default function Post({post} : {post:PostType}){
 
@@ -37,10 +38,7 @@ export default function Post({post} : {post:PostType}){
       </div>
       
       <div className="flex flex-row gap-4">
-        <div className="flex flex-row content-center gap-1 flex-wrap mt-2">
-          {isClinet && <FavoriteBorderOutlinedIcon/>}
-          <p className="">{post.reactions.likes}</p>
-        </div>
+        {isClinet && <LikeButton post={post}/>}
         <div className="flex flex-row content-center gap-1 flex-wrap mt-2">
           {isClinet && <RemoveRedEyeOutlinedIcon/>}
           <p className="">{post.views}</p>

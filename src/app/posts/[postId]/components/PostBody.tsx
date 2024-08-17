@@ -8,6 +8,7 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Comment from "./Comment";
 import { useRouter } from "next/navigation";
 import Tag from "@/components/Tag";
+import LikeButton from "@/components/LikeButton";
 
 export default function PostBody({post, comments} : {post: PostType, comments: CommentType[]}) {
 
@@ -33,10 +34,7 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
       </div>
 
       <div className="flex flex-row gap-4 mt-3">
-        <div className="flex flex-row content-center gap-1 flex-wrap mt-2">
-          {isClinet && <FavoriteBorderOutlinedIcon/>}
-          <p className="">{post.reactions.likes}</p>
-        </div>
+        {isClinet && <LikeButton post={post}/>}
         <div className="flex flex-row content-center gap-1 flex-wrap mt-2">
           {isClinet && <RemoveRedEyeOutlinedIcon/>}
           <p className="">{post.views}</p>
