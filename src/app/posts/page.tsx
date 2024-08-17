@@ -10,6 +10,7 @@ import {
   getSearchKeyword 
 } from "@/lib/actions"
 import { isSearchParamsEmpty } from "@/lib/utils"
+import Link from "next/link"
 
 export const metadata : Metadata = {
   title: "Posts"
@@ -28,6 +29,9 @@ export default async function Posts({searchParams} : {searchParams: {tags?: stri
 
   return (
     <div>
+
+      {!isSearchParamsEmpty(searchParams) && <Link href="/posts" className="text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl">← Go back to searching</Link>}
+
       {searchParams.tags? 
         <h1 className="text-2xl font-semibold text-center">Search for <span className="bg-primary-light p-1">#{searchParams.tags}</span> posts</h1> 
         :

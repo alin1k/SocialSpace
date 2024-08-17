@@ -20,8 +20,8 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
 
   return (
     <div className="w-full">
-      <button onClick={()=>router.back()} className="text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl mb-5">← Go back</button>
-      <p className="text-xl font-semibold leading-5">{post.title}</p>
+      <button onClick={()=>router.back()} className="text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl">← Go back</button>
+      <p className="text-xl font-semibold leading-5 mt-5">{post.title}</p>
       <p>by user{post.userId}</p>
       <p className="mt-3">{post.body}</p>
 

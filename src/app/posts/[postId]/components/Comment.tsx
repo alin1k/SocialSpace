@@ -12,7 +12,7 @@ export default function Comment({comment, isClient} : {comment: CommentType, isC
       <p className="font-semibold inline ms-1">{comment.user.username}</p>
       <p>{comment.body}</p>
       {isClient && <FavoriteBorderOutlinedIcon className="size-4 inline"/>}
-      <p className="inline ms-2 text-xs">{comment.likes}</p>
+      <p className="inline ms-1 text-xs">{comment.likes}</p>
     </div>
   )
 }
