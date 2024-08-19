@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type PostType = {
   id: number,
   title: string,
@@ -22,3 +24,8 @@ export type CommentType = {
     fullName: string
   }
 }
+
+export type LikedPostsContextType = [
+  likedPosts: string[] | undefined,
+  setLikedPosts: Dispatch<SetStateAction<string[] | undefined>> | undefined
+]
