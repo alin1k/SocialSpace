@@ -6,8 +6,6 @@ import { useEffect, useState } from 'react';
 import { PostType } from '@/types/types';
 import {useLikedPostsContext } from '@/context/liked-posts';
 
-
-
 export default function LikeButton({post} : {post: PostType}) {
 
   const {likedPosts, setLikedPosts} = useLikedPostsContext()
@@ -15,18 +13,17 @@ export default function LikeButton({post} : {post: PostType}) {
 
   useEffect(()=>{
     setLiked(likedPosts.includes(post.id.toString()));
+    localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
   }, [likedPosts])
 
   function handleClick(){
     setLikedPosts(prev =>{
-      const currentLikedPosts = prev ?? [];
+      let currentLikedPosts = prev ?? [];
       if(currentLikedPosts.includes(post.id.toString())){
         return currentLikedPosts.filter((postId) => postId !== post.id.toString())
       }
-
       return [...currentLikedPosts, post.id.toString()]
-    } 
-    )
+    })
   }
 
   return (
