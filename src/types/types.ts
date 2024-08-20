@@ -29,3 +29,8 @@ export type LikedPostsContextType = [
   likedPosts: PostType[] | undefined,
   setLikedPosts: Dispatch<SetStateAction<PostType[] | undefined>> | undefined
 ]
+
+export type UserCommentsContextType = [
+  userComments: CommentType[] | undefined,
+  setUserComments: Dispatch<SetStateAction<CommentType[] | undefined>> | undefined
+]

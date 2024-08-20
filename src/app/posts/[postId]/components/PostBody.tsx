@@ -2,22 +2,32 @@
 
 import { PostType, CommentType } from "@/types/types";
 import { useState, useEffect } from "react";
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import Comment from "./Comment";
+import Comment from "../../../../components/Comment";
 import { useRouter } from "next/navigation";
 import Tag from "@/components/Tag";
 import LikeButton from "@/components/LikeButton";
+import { useUserCommentsContext } from "@/context/comments";
 
 export default function PostBody({post, comments} : {post: PostType, comments: CommentType[]}) {
 
-  const [isClinet, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
+
+  const {userComments, setUserComments} = useUserCommentsContext();
+  const [currentPostUserComments, setCurrentPostUserComments] = useState<CommentType[]>([]);
 
   useEffect(()=>{
     setIsClient(true);
-  }, [])
+  }, []);
+
+  useEffect(()=>{
+    localStorage.setItem('userComments', JSON.stringify(userComments));
+    setCurrentPostUserComments(prev=> userComments.filter(comment => comment.postId === post.id))
+  }, [userComments]);
+
+  const [inputValue, setInputValue] = useState('')
 
   return (
     <div className="w-full">
@@ -34,9 +44,9 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
       </div>
 
       <div className="flex flex-row gap-4 mt-3">
-        {isClinet && <LikeButton post={post}/>}
+        {isClient && <LikeButton post={post}/>}
         <div className="flex flex-row content-center gap-1 flex-wrap mt-2">
-          {isClinet && <RemoveRedEyeOutlinedIcon/>}
+          {isClient && <RemoveRedEyeOutlinedIcon/>}
           <p className="">{post.views}</p>
         </div>
       </div>
@@ -44,14 +54,59 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
       <hr className="my-3"/>  
 
       <div className="inline">
-        {isClinet && <QuestionAnswerIcon className="size-10"/>}
+        {isClient && <QuestionAnswerIcon className="size-10"/>}
       </div>
-      <p className="ms-2 text-lg font-semibold inline">Comments: {comments.length}</p>
+      <p className="ms-2 text-lg font-semibold inline">Comments: {comments.length + currentPostUserComments.length}</p>
 
       <div className="flex flex-col gap-4 mt-3">
         {comments.map((comment, index)=>
-          <Comment comment={comment} key={`${post.id}comment${comment.id}`} isClient={isClinet} />
+          <Comment comment={comment} key={`${post.id}comment${comment.id}`}/>
         )}
+        {currentPostUserComments.map((comment, index)=>
+          <Comment comment={comment} key={`${post.id}comment${comment.id + index}`}/>
+        )}
+      </div>
+
+      <hr className="my-4"/>
+
+      <p>Add comment</p>
+      <div className="flex flex-row flex-nowrap">
+        <input
+          value={inputValue}
+          onChange={(e)=>{
+            e.preventDefault();
+            setInputValue(e.target.value)
+          }} 
+          required 
+          autoComplete="off" 
+          type="text" 
+          className="w-full px-2 py-1 rounded-e-none rounded-xl border"
+        />
+        <button 
+          onClick={()=>{
+            setUserComments(prev => {
+              if(inputValue.length === 0) return prev;
+
+              const currentComments = prev ?? [];
+              const comment : CommentType = {
+                id: 1111111,
+                body: inputValue,
+                postId: post.id,
+                likes: 0,
+                user: {
+                  id: 121212,
+                  username: 'guest',
+                  fullName: 'Guest'
+                }
+              }
+              return [...currentComments, comment];
+            })
+            setInputValue('');
+          }}
+          className="border rounded-s-none rounded-xl px-2 hover:bg-primary"
+        >
+          Add
+        </button>
       </div>
 
     </div>

@@ -58,3 +58,9 @@ export const getPostsBySearchKeyword = async (keyword: string)=>{
 
   return res.json();
 }
+
+export const postCommentAction = async (formData: FormData)=>{
+  const commentBody = formData.get("comment");
+  localStorage.setItem("comments", JSON.stringify(commentBody))
+  console.log(commentBody)
+}
