@@ -1,13 +1,11 @@
 "use server"
 
-import { CommentType, PostType } from "@/types/types";
 import { redirect, notFound } from "next/navigation"
 
 export const getPosts = async ()=>{
   const res = await fetch("https://dummyjson.com/posts?limit=10", {
     cache: "no-store"
   });
-  await new Promise(resolve => setTimeout(resolve, 1000))
   return res.json();
 }
 
@@ -18,7 +16,6 @@ export const getPostById = async (postId: string)=>{
   
   if(res.status !== 200) notFound();
 
-  await new Promise(resolve => setTimeout(resolve, 1000))
   return res.json();
 }
 
@@ -30,7 +27,6 @@ export const getPostCommentsById= async (postId : string)=>{
 
   if(res.status !== 200) notFound();
 
-  await new Promise(resolve => setTimeout(resolve, 1000))
   return res.json();
 }
 
