@@ -1,7 +1,7 @@
 import { LikedPostsContextType } from "@/types/types";
 import { createContext, useContext } from "react";
 
-export const LikedPostsContext = createContext<LikedPostsContextType>([undefined, ()=>{}])
+export const LikedPostsContext = createContext<LikedPostsContextType>([undefined, undefined])
 
 export function useLikedPostsContext(){
   const [likedPosts, setLikedPosts] = useContext(LikedPostsContext);

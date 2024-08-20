@@ -4,7 +4,8 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useEffect, useState } from 'react';
 import { PostType } from '@/types/types';
-import {useLikedPostsContext } from '@/context/liked-posts';
+import { useLikedPostsContext } from '@/context/liked-posts';
+import { isPostLiked } from '@/lib/utils';
 
 export default function LikeButton({post} : {post: PostType}) {
 
@@ -12,17 +13,18 @@ export default function LikeButton({post} : {post: PostType}) {
   const [liked, setLiked] = useState(false);
 
   useEffect(()=>{
-    setLiked(likedPosts.includes(post.id.toString()));
+    setLiked(isPostLiked(likedPosts, post.id));
     localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
   }, [likedPosts])
 
   function handleClick(){
     setLikedPosts(prev =>{
       let currentLikedPosts = prev ?? [];
-      if(currentLikedPosts.includes(post.id.toString())){
-        return currentLikedPosts.filter((postId) => postId !== post.id.toString())
+      if(liked){
+        return currentLikedPosts.filter((currentPost) => currentPost.id !== post.id)
       }
-      return [...currentLikedPosts, post.id.toString()]
+
+      return [...currentLikedPosts, post];
     })
   }
 

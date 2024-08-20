@@ -2,16 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { LikedPostsContext } from "@/context/liked-posts";
+import { PostType } from "@/types/types";
 
 export default function LikedPostsProvider({children} : {children: React.ReactNode}) {
 
-  const [likedPosts, setLikedPosts] = useState<string[] | undefined>([])
+  const [likedPosts, setLikedPosts] = useState<PostType[] | undefined>([])
 
   useEffect(()=>{
 
     const localStorageLiked = localStorage.getItem("likedPosts")
     if(localStorageLiked){
-      const liked : string[] = JSON.parse(localStorageLiked)
+      const liked : PostType[] = JSON.parse(localStorageLiked)
       setLikedPosts(liked)
     }
     
