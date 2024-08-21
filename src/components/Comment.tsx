@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { CommentType } from "@/types/types";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useUserCommentsContext } from "@/context/comments";
+import EditButton from "./EditButton";
 
 
 export default function Comment({comment} : {comment: CommentType}) {
@@ -37,7 +37,7 @@ export default function Comment({comment} : {comment: CommentType}) {
           {isClient && <AccountCircleOutlinedIcon className="inline size-6"/>}
           <p className="font-semibold inline ms-1">{comment.user.username}</p>
         </div>
-        {(isClient && userId == comment.user.id )&& <DeleteIcon onClick={handleDeleteComment} className="p-1 hover:cursor-pointer hover:bg-gray-100 rounded-xl"/>}
+        {(isClient && userId == comment.user.id )&& <EditButton deleteAction={handleDeleteComment}/>}
       </div>
       <p>{comment.body}</p>
       {isClient && <FavoriteBorderOutlinedIcon className="size-4 inline"/>}
