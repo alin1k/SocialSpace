@@ -20,7 +20,7 @@ export default function LikeButton({post} : {post: PostType}) {
   function handleClick(){
     setLikedPosts(prev =>{
       let currentLikedPosts = prev ?? [];
-      if(liked){
+      if(isPostLiked(likedPosts, post.id)){
         return currentLikedPosts.filter((currentPost) => currentPost.id !== post.id)
       }
 
