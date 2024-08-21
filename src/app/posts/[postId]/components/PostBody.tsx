@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import Tag from "@/components/Tag";
 import LikeButton from "@/components/LikeButton";
 import { useUserCommentsContext } from "@/context/comments";
+import generateUniqueId from "generate-unique-id";
 
 export default function PostBody({post, comments} : {post: PostType, comments: CommentType[]}) {
 
@@ -89,7 +90,7 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
 
               const currentComments = prev ?? [];
               const comment : CommentType = {
-                id: 1111111,
+                id: parseInt(generateUniqueId({length: 10,useLetters: false, })),
                 body: inputValue,
                 postId: post.id,
                 likes: 0,

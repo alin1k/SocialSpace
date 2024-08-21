@@ -17,14 +17,17 @@ export default function Comment({comment} : {comment: CommentType}) {
 
   const userId = 121212;
 
-  const {setUserComments} = useUserCommentsContext();
+  const {userComments, setUserComments} = useUserCommentsContext();
+
+  useEffect(()=>{
+    localStorage.setItem('userComments', JSON.stringify(userComments));
+  }, [userComments])
 
   const handleDeleteComment = ()=>{
-    // setUserComments(prev=> {
-    //   let currentComments = prev ?? [];
-    //   return currentComments.filter((comm) => comm.user.id !== userId);
-    // })
-    console.log('deleting comment');
+    setUserComments(prev=> {
+      let currentComments = prev ?? [];
+      return currentComments.filter((comm) => comm.id !== comment.id);
+    })
   }
 
   return (

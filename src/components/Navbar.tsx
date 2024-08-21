@@ -19,7 +19,7 @@ function Navbar() {
   return (
     <>
       <header className="w-full flex justify-between items-center p-3 sm:px-8 md:px-20 lg:px-40 xl:px-64 2xl:px-96">
-        <p className="bg-primary rounded-2xl p-2 font-semibold text-xl">SocialSpace</p>
+        <Link href='/' className="bg-primary rounded-2xl p-2 font-semibold text-xl">SocialSpace</Link>
         <div className="sm:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
             {menuOpen ? <CloseIcon /> : <MenuIcon />}
