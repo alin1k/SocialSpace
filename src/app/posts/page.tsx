@@ -50,7 +50,6 @@ export default async function Posts({searchParams} : {searchParams: {tags?: stri
         <></>
       }
 
-
       <hr className="my-5"/>
 
       {!isSearchParamsEmpty(searchParams) ? 

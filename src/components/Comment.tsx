@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { CommentType } from "@/types/types";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
@@ -8,24 +8,17 @@ import { useUserCommentsContext } from "@/context/comments";
 import EditButton from "./EditButton";
 import { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
+import useIsClient from "@/hooks/useIsClient";
 
 
 export default function Comment({comment, onProfile} : {comment: CommentType, onProfile?: true}) {
 
-  const [editState, setEditState] = useState(false);
-
-  const [isClient, setIsClient] = useState(false);
-  useEffect(()=>{
-    setIsClient(true);
-  }, []);
-
   const userId = 121212;
 
-  const {userComments, setUserComments} = useUserCommentsContext();
+  const isClient = useIsClient();
+  const {setUserComments} = useUserCommentsContext();
 
-  useEffect(()=>{
-    localStorage.setItem('userComments', JSON.stringify(userComments));
-  }, [userComments])
+  const [editState, setEditState] = useState(false);
 
   const handleDeleteComment = ()=>{
     setUserComments(prev=> {
@@ -62,13 +55,13 @@ export default function Comment({comment, onProfile} : {comment: CommentType, on
   )
 }
 
-function EditComment({
-  comment, setEditState , setUserComments
-} : {
+type EditCommentProps = {
   comment: CommentType, 
   setEditState: Dispatch<SetStateAction<boolean>>,
   setUserComments: Dispatch<SetStateAction<CommentType[] | undefined>>
-}){
+}
+
+function EditComment({comment, setEditState , setUserComments} : EditCommentProps){
 
   const [inputValue, setInputValue] = useState(comment.body);
 
@@ -88,6 +81,8 @@ function EditComment({
         onClick={()=>{
           setEditState(false)
           setUserComments((prev)=>{
+            if(inputValue.length === 0) return prev;
+
             let currentComments = prev ?? [];
             return currentComments.map((comm)=> comm.id===comment.id? {...comm, body: inputValue,} : comm);
           })

@@ -1,7 +1,7 @@
 "use client"
 
 import { PostType, CommentType } from "@/types/types";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Comment from "../../../../components/Comment";
@@ -10,25 +10,15 @@ import Tag from "@/components/Tag";
 import LikeButton from "@/components/LikeButton";
 import { useUserCommentsContext } from "@/context/comments";
 import generateUniqueId from "generate-unique-id";
+import useIsClient from "@/hooks/useIsClient";
+import useCurrentPostUserComments from "@/hooks/useCurrentPostUserComments";
 
 export default function PostBody({post, comments} : {post: PostType, comments: CommentType[]}) {
 
-  const [isClient, setIsClient] = useState(false);
+  const isClient = useIsClient();
   const router = useRouter();
 
-  const {userComments, setUserComments} = useUserCommentsContext();
-  const [currentPostUserComments, setCurrentPostUserComments] = useState<CommentType[]>([]);
-
-  useEffect(()=>{
-    setIsClient(true);
-  }, []);
-
-  useEffect(()=>{
-    localStorage.setItem('userComments', JSON.stringify(userComments));
-    setCurrentPostUserComments(prev=> userComments.filter(comment => comment.postId === post.id))
-  }, [userComments]);
-
-  const [inputValue, setInputValue] = useState('')
+  const currentPostUserComments = useCurrentPostUserComments(post);
 
   return (
     <div className="w-full">
@@ -64,12 +54,29 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
           <Comment comment={comment} key={`${post.id}comment${comment.id}`} />
         )}
         {currentPostUserComments.map((comment, index)=>
-          <Comment comment={comment} key={`${post.id}comment${comment.id + index}`} />
+          <Comment comment={comment} key={`${post.id}comment${comment.id}`} />
         )}
       </div>
 
       <hr className="my-4"/>
 
+      <AddCommentField post={post}/>
+
+    </div>
+  )
+}
+
+type AddCommentFieldProps = {
+  post: PostType
+}
+
+function AddCommentField({post} : AddCommentFieldProps){
+
+  const [inputValue, setInputValue] = useState('')
+  const {setUserComments} = useUserCommentsContext();
+
+  return(
+    <>
       <p>Add comment</p>
       <div className="flex flex-row flex-nowrap">
         <input
@@ -109,7 +116,6 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
           Add
         </button>
       </div>
-
-    </div>
+    </>
   )
 }

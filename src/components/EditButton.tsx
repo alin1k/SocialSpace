@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Dispatch, SetStateAction } from 'react';
+import useClickOutsideHandler from '@/hooks/useClickOutsideHandler';
 
 function EditButton({deleteAction, editAction} : {deleteAction: ()=>void, editAction: Dispatch<SetStateAction<boolean>>}) {
 
@@ -14,23 +15,7 @@ function EditButton({deleteAction, editAction} : {deleteAction: ()=>void, editAc
     setIsOpen(!isOpen);
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node) &&
-      buttonRef.current &&
-      !buttonRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  useClickOutsideHandler({dropdownRef, buttonRef, setIsOpen})
 
   return (
     <div className="relative inline-block text-left">
