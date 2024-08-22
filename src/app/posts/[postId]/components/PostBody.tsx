@@ -61,10 +61,10 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
 
       <div className="flex flex-col gap-4 mt-3">
         {comments.map((comment, index)=>
-          <Comment comment={comment} key={`${post.id}comment${comment.id}`}/>
+          <Comment comment={comment} key={`${post.id}comment${comment.id}`} />
         )}
         {currentPostUserComments.map((comment, index)=>
-          <Comment comment={comment} key={`${post.id}comment${comment.id + index}`}/>
+          <Comment comment={comment} key={`${post.id}comment${comment.id + index}`} />
         )}
       </div>
 

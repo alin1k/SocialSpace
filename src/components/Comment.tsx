@@ -7,9 +7,10 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import { useUserCommentsContext } from "@/context/comments";
 import EditButton from "./EditButton";
 import { Dispatch, SetStateAction } from "react";
+import Link from "next/link";
 
 
-export default function Comment({comment} : {comment: CommentType}) {
+export default function Comment({comment, onProfile} : {comment: CommentType, onProfile?: true}) {
 
   const [editState, setEditState] = useState(false);
 
@@ -34,13 +35,17 @@ export default function Comment({comment} : {comment: CommentType}) {
   }
 
   return (
-    <div className="p-2 border rounded-xl">
+    <div className="p-2 border rounded-xl relative">
+      {(isClient && userId == comment.user.id )&& (
+        <div className="absolute top-1 right-1">
+          <EditButton deleteAction={handleDeleteComment} editAction={setEditState}/>
+        </div>
+      )}
       <div className="flex justify-between">
         <div>
           {isClient && <AccountCircleOutlinedIcon className="inline size-6"/>}
           <p className="font-semibold inline ms-1">{comment.user.username}</p>
         </div>
-        {(isClient && userId == comment.user.id )&& <EditButton deleteAction={handleDeleteComment} editAction={setEditState}/>}
       </div>
 
       {editState?
@@ -48,9 +53,11 @@ export default function Comment({comment} : {comment: CommentType}) {
         :
         <p>{comment.body}</p>
       }
-      
-      {isClient && <FavoriteBorderOutlinedIcon className="size-4 inline"/>}
-      <p className="inline ms-1 text-xs">{comment.likes}</p>
+      <div className="block">
+        {isClient && <FavoriteBorderOutlinedIcon className="size-4 inline"/>}
+        <p className="inline ms-1 text-xs">{comment.likes}</p>
+      </div>
+      {onProfile && <Link href={`/posts/${comment.postId}`} className='text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl'>See post →</Link>}
     </div>
   )
 }
@@ -66,7 +73,7 @@ function EditComment({
   const [inputValue, setInputValue] = useState(comment.body);
 
   return (
-    <div className="block">
+    <div className="block mt-2">
       <input 
         type="text" 
         value={inputValue} 

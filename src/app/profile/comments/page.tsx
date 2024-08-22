@@ -13,7 +13,7 @@ export default function CommentsPage() {
   return (
     <div className="flex flex-col gap-4 mt-3">
       {userComments.map((comment, index)=>
-        <Comment comment={comment} key={`comment${comment.id + index}`}/>
+        <Comment onProfile comment={comment} key={`comment${comment.id + index}`}/>
       )}
     </div>
   )
