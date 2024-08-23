@@ -16,6 +16,7 @@ export default function AddPostPage() {
         <div className="flex flex-row p-2 gap-2">
           {addedTags.map((tag, index)=>
             <Tag 
+              key={index}
               initialValue={tag}
               updateTagInList={(input: string)=>{
                 setAddedTags(prev=>
