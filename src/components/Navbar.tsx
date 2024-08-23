@@ -26,17 +26,17 @@ function Navbar() {
           </button>
         </div>
         <div className="hidden sm:flex gap-1">
-          <Link href="/" className="hover:bg-gray-100 p-1 px-2 rounded-xl">Home</Link>
+          {/* <Link href="/" className="hover:bg-gray-100 p-1 px-2 rounded-xl">Home</Link>
           <Link href="/posts" className="hover:bg-gray-100 p-1 px-2 rounded-xl">Posts</Link>
-          <Link href="/profile" className="hover:bg-gray-100 p-1 px-2 rounded-xl">Profile</Link>
+          <Link href="/profile" className="hover:bg-gray-100 p-1 px-2 rounded-xl">Profile</Link> */}
         </div>
       </header>
       <hr />
       {menuOpen && (
         <div className="sm:hidden flex flex-col items-center bg-white w-full py-4 shadow-md">
-          <Link href="/" onClick={closeMenu} className="block w-full text-center py-2 hover:bg-gray-100">Home</Link>
+          {/* <Link href="/" onClick={closeMenu} className="block w-full text-center py-2 hover:bg-gray-100">Home</Link>
           <Link href="/posts" onClick={closeMenu} className="block w-full text-center py-2 hover:bg-gray-100">Posts</Link>
-          <Link href="/profile" onClick={closeMenu} className="block w-full text-center py-2 hover:bg-gray-100">Profile</Link>
+          <Link href="/profile" onClick={closeMenu} className="block w-full text-center py-2 hover:bg-gray-100">Profile</Link> */}
         </div>
       )}
     </>
