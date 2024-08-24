@@ -13,7 +13,7 @@ export default function Profile() {
   return (
     <div className="py-2 flex flex-col gap-5">
       {userPosts.map((post, index)=>(
-        <Post post={post}/>
+        <Post post={post} key={index}/>
       ))}
     </div>
   )
