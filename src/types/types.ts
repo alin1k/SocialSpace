@@ -34,3 +34,8 @@ export type UserCommentsContextType = [
   userComments: CommentType[] | undefined,
   setUserComments: Dispatch<SetStateAction<CommentType[] | undefined>> | undefined
 ]
+
+export type UserPostsContextType = [
+  userPosts: PostType[] | undefined,
+  setUserPosts: Dispatch<SetStateAction<PostType[] | undefined>> | undefined
+]

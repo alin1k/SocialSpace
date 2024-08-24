@@ -9,9 +9,9 @@ export default function UserCommentsProvider({children} : {children: React.React
   const [userComments, setUserComments] = useState<CommentType[] | undefined>([])
 
   useEffect(()=>{
-    const localStorageLiked = localStorage.getItem("userComments")
-    if(localStorageLiked){
-      const comments : CommentType[] = JSON.parse(localStorageLiked)
+    const localStorageComments = localStorage.getItem("userComments")
+    if(localStorageComments){
+      const comments : CommentType[] = JSON.parse(localStorageComments)
       setUserComments(comments)
     }
   }, [])

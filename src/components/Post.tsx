@@ -26,11 +26,16 @@ export default function Post({post} : {post:PostType}){
       <h1 className="text-xl font-semibold leading-5 mb-2">{post.title}</h1>
       <p>{post.body}</p>
 
-      <div className="flex flex-row content-center flex-wrap gap-2 mt-2">
-        {post.tags.map((tag,index)=>
-          <Tag key={post.id.toString() + "tag" + index.toString()} className="text-sm">{tag}</Tag>
-        )}
-      </div>
+
+      {post.tags.length ? (
+        <div className="flex flex-row content-center flex-wrap gap-2 mt-2">
+          {post.tags.map((tag,index)=>
+            <Tag key={post.id.toString() + "tag" + index.toString()} className="text-sm">{tag}</Tag>
+          )}
+        </div>
+      ) :
+        <></>
+      }
       
       <div className="flex flex-row gap-4">
         {isClient && <LikeButton post={post}/>}

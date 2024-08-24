@@ -3,17 +3,72 @@
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { AccountCircleOutlined } from '@mui/icons-material';
 import { useEffect, useState } from 'react'
+import { useUserPostsContext } from '@/context/user-posts';
+import { PostType } from '@/types/types';
+import generateUniqueId from 'generate-unique-id';
+import { useRouter } from 'next/navigation';
 
 export default function AddPostPage() {
 
   const [addedTags, setAddedTags] = useState<string[]>([]);
 
+  const [titleInputValue, setTitleInputValue] = useState('');
+  const [bodyInputValue, setBodyInputValue] = useState('');
+
+  const {setUserPosts} = useUserPostsContext();
+
+  const router = useRouter();
+
+  function addPost(){
+
+    if(titleInputValue.length > 0 && bodyInputValue.length > 0){
+      const post : PostType = {
+        id: parseInt(generateUniqueId({length: 10,useLetters: false, })),
+        title: titleInputValue,
+        body: bodyInputValue,
+        tags: addedTags,
+        reactions: {
+          likes: 0,
+          dislikes: 0
+        },
+        views: 0,
+        userId: 121212
+      }
+
+      setUserPosts(prev => {
+        const currentUserPosts = prev ?? [];
+        return [...currentUserPosts, post]
+      })
+
+      router.replace('/profile');
+    }
+  }
+
   return (
     <div className="border rounded-xl">
-      <input type="text" autoComplete='off' className="mt-1 w-full rounded-xl px-2 pt-2 text-xl font-semibold border-none focus:outline-none" placeholder="Title"/>
-      <textarea className="mt-1 w-full border-none rounded-xl px-2 resize-none focus:outline-none" placeholder="Write what's on your mind..." rows={3}></textarea>
+      <input 
+        value={titleInputValue}
+        onChange={(e)=>{
+          e.preventDefault();
+          setTitleInputValue(e.target.value);
+        }}
+        type="text" 
+        autoComplete='off' 
+        className="mt-1 w-full rounded-xl px-2 pt-2 text-xl font-semibold border-none focus:outline-none" 
+        placeholder="Title"
+      />
+      <textarea 
+        value={bodyInputValue}
+        onChange={(e)=>{
+          e.preventDefault();
+          setBodyInputValue(e.target.value);
+        }}
+        className="mt-1 w-full border-none rounded-xl px-2 resize-none focus:outline-none" 
+        placeholder="Write what's on your mind..." 
+        rows={3} 
+      />
       {addedTags.length ? (
-        <div className="flex flex-row p-2 gap-2">
+        <div className="flex flex-row flex-wrap p-2 gap-2">
           {addedTags.map((tag, index)=>
             <Tag 
               key={index}
@@ -30,14 +85,14 @@ export default function AddPostPage() {
             />
           )}
         </div>
-      ) : 
-      <></>
+      ) 
+      : 
+        <></>
       }
       <button 
         onClick={()=>{
           setAddedTags(prev=>{
             if(prev.length < 3) return [...prev, '']
-
             return prev
           })
         }}
@@ -50,7 +105,12 @@ export default function AddPostPage() {
           <AccountCircleOutlined/>
           <p className="font-semibold inline ms-1">guest</p>
         </div>
-        <button className='p-1 px-2 bg-primary hover:bg-primary-hover rounded-lg'>Add Post</button>
+        <button 
+          onClick={addPost}
+          className='p-1 px-2 bg-primary hover:bg-primary-hover rounded-lg'
+        >
+          Add Post
+        </button>
       </div>
     </div>
   )
