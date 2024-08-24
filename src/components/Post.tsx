@@ -5,7 +5,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { PostType } from '@/types/types';
 import Link from 'next/link';
 import Tag from './Tag';
-import LikeButton from './LikeButton';
+import LikeButton from './ui/LikeButton';
 import useIsClient from '@/hooks/useIsClient';
 
 export default function Post({post} : {post:PostType}){

@@ -7,7 +7,7 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Comment from "../../../../components/Comment";
 import { useRouter } from "next/navigation";
 import Tag from "@/components/Tag";
-import LikeButton from "@/components/LikeButton";
+import LikeButton from "@/components/ui/LikeButton";
 import { useUserCommentsContext } from "@/context/comments";
 import generateUniqueId from "generate-unique-id";
 import useIsClient from "@/hooks/useIsClient";

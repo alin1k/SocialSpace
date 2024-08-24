@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { CommentType, PostType } from "@/types/types";
-import PostBody from "./components/PostBody";
+import PostBody from "./_components/PostBody";
 import { 
   getPostById,
   getPostCommentsById

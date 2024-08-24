@@ -1,5 +1,5 @@
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import Nav from './components/Nav';
+import Nav from './_components/Nav';
 
 function layout({children} : {children: React.ReactNode}) {
   return (

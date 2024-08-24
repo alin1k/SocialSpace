@@ -1,8 +1,8 @@
 import { Metadata } from "next"
-import TagList from "./components/TagList"
+import TagList from "./_components/TagList"
 import Post from "@/components/Post"
 import { PostType } from "@/types/types"
-import SearchField from "./components/SearchField"
+import SearchField from "./_components/SearchField"
 import { 
   getAllTags, 
   getPostsByTag, 

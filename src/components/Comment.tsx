@@ -5,7 +5,7 @@ import { CommentType } from "@/types/types";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useUserCommentsContext } from "@/context/comments";
-import EditButton from "./EditButton";
+import EditButton from "./ui/EditButton";
 import { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import useIsClient from "@/hooks/useIsClient";
