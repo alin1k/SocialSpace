@@ -44,12 +44,15 @@ export default function Comment({comment, onProfile} : {comment: CommentType, on
       {editState?
         <EditComment comment={comment} setEditState={setEditState} setUserComments={setUserComments}/>
         :
-        <p>{comment.body}</p>
+        <>
+          <p>{comment.body}</p>
+          <div className="block">
+            {isClient && <FavoriteBorderOutlinedIcon className="size-4 inline"/>}
+            <p className="inline ms-1 text-xs">{comment.likes}</p>
+          </div>
+        </>
       }
-      <div className="block">
-        {isClient && <FavoriteBorderOutlinedIcon className="size-4 inline"/>}
-        <p className="inline ms-1 text-xs">{comment.likes}</p>
-      </div>
+      
       {onProfile && <Link href={`/posts/${comment.postId}`} className='text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl'>See post →</Link>}
     </div>
   )
@@ -68,16 +71,19 @@ function EditComment({comment, setEditState , setUserComments} : EditCommentProp
   return (
     <div className="block mt-2">
       <input 
+        placeholder="Edit your comment..."
         type="text" 
         value={inputValue} 
         onChange={(e)=>{
           e.preventDefault();
           setInputValue(e.target.value);
         }}
-        className="w-full border rounded p-1"
+        className="w-full rounded p-1 focus:outline-0"
       />
+
+      <hr />
       <button 
-        className="border p-1 px-2 mt-1 rounded hover:bg-primary"
+        className="border p-1 px-2 mt-1 rounded-xl bg-primary hover:bg-primary-hover"
         onClick={()=>{
           setEditState(false)
           setUserComments((prev)=>{
@@ -91,7 +97,7 @@ function EditComment({comment, setEditState , setUserComments} : EditCommentProp
         Confirm edit
       </button>
       <button 
-        className="ms-3 border p-1 px-2 rounded bg-red-300 hover:bg-red-500"
+        className="ms-3 border p-1 px-2 rounded-xl bg-red-300 hover:bg-red-500"
         onClick={()=> setEditState(false)}
       >
         Cancel

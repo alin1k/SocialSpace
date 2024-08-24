@@ -4,6 +4,7 @@ import { PostType, CommentType } from "@/types/types";
 import { useState} from "react";
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Comment from "../../../../components/Comment";
 import { useRouter } from "next/navigation";
 import Tag from "@/components/Tag";
@@ -58,7 +59,7 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
         )}
       </div>
 
-      <hr className="my-4"/>
+      {/* <hr className="my-4"/> */}
 
       <AddCommentField post={post}/>
 
@@ -77,9 +78,13 @@ function AddCommentField({post} : AddCommentFieldProps){
 
   return(
     <>
-      <p>Add comment</p>
-      <div className="flex flex-row flex-nowrap">
+      <div className="border rounded-xl p-2 mt-4">
+        <div>
+          <AccountCircleOutlinedIcon/>
+          <p className="inline font-semibold ms-1">guest</p>
+        </div>
         <input
+          placeholder="Write a comment..."
           value={inputValue}
           onChange={(e)=>{
             e.preventDefault();
@@ -88,7 +93,7 @@ function AddCommentField({post} : AddCommentFieldProps){
           required 
           autoComplete="off" 
           type="text" 
-          className="w-full px-2 py-1 rounded-e-none rounded-xl border"
+          className="w-full p-1 border-none focus:outline-0"
         />
         <button 
           onClick={()=>{
@@ -111,9 +116,9 @@ function AddCommentField({post} : AddCommentFieldProps){
             })
             setInputValue('');
           }}
-          className="border rounded-s-none rounded-xl px-2 hover:bg-primary"
+          className="rounded-xl p-1 px-2 mt-1 bg-primary hover:bg-primary-hover"
         >
-          Add
+          Add Comment
         </button>
       </div>
     </>
