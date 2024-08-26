@@ -20,11 +20,11 @@ function Navbar() {
     <>
       <header className="w-full flex justify-between items-center p-3 sm:px-8 md:px-20 lg:px-40 xl:px-64 2xl:px-96">
         <Link href='/' className="bg-primary rounded-2xl p-2 font-semibold text-xl">SocialSpace</Link>
-        <div className="sm:hidden">
+        {/* <div className="sm:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
             {menuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
-        </div>
+        </div> */}
         <div className="hidden sm:flex gap-1">
           {/* <Link href="/" className="hover:bg-gray-100 p-1 px-2 rounded-xl">Home</Link>
           <Link href="/posts" className="hover:bg-gray-100 p-1 px-2 rounded-xl">Posts</Link>

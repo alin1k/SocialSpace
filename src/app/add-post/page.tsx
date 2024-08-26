@@ -21,27 +21,27 @@ export default function AddPostPage() {
 
   function addPost(){
 
-    if(titleInputValue.length > 0 && bodyInputValue.length > 0){
-      const post : PostType = {
-        id: parseInt(generateUniqueId({length: 10,useLetters: false, })),
-        title: titleInputValue,
-        body: bodyInputValue,
-        tags: addedTags,
-        reactions: {
-          likes: 0,
-          dislikes: 0
-        },
-        views: 0,
-        userId: 121212
-      }
+    if(titleInputValue.length === 0 || bodyInputValue.length === 0) return;
 
-      setUserPosts(prev => {
-        const currentUserPosts = prev ?? [];
-        return [...currentUserPosts, post]
-      })
-
-      router.replace('/profile');
+    const post : PostType = {
+      id: parseInt(generateUniqueId({length: 10,useLetters: false, })),
+      title: titleInputValue,
+      body: bodyInputValue,
+      tags: addedTags,
+      reactions: {
+        likes: 0,
+        dislikes: 0
+      },
+      views: 0,
+      userId: 121212
     }
+
+    setUserPosts(prev => {
+      const currentUserPosts = prev ?? [];
+      return [...currentUserPosts, post]
+    })
+
+    router.replace('/profile');
   }
 
   return (
