@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Dispatch, SetStateAction } from 'react';
 import useClickOutsideHandler from '@/hooks/useClickOutsideHandler';
+import { toast } from 'sonner';
 
 function EditButton({deleteAction, editAction} : {deleteAction: ()=>void, editAction: Dispatch<SetStateAction<boolean>>}) {
 
@@ -47,6 +48,7 @@ function EditButton({deleteAction, editAction} : {deleteAction: ()=>void, editAc
               className="block w-full text-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100 focus:outline-none"
               onClick={() => {
                 deleteAction();
+                toast.success("Deleted successfully")
                 setIsOpen(false)
               }}
             >

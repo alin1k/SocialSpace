@@ -13,6 +13,7 @@ import { useUserCommentsContext } from "@/context/comments";
 import generateUniqueId from "generate-unique-id";
 import useIsClient from "@/hooks/useIsClient";
 import useCurrentPostUserComments from "@/hooks/useCurrentPostUserComments";
+import { toast } from "sonner";
 
 export default function PostBody({post, comments} : {post: PostType, comments: CommentType[]}) {
 
@@ -97,8 +98,11 @@ function AddCommentField({post} : AddCommentFieldProps){
         />
         <button 
           onClick={()=>{
+            if(inputValue.length === 0) {
+              toast.error("Cannot add empty comment")
+              return
+            };
             setUserComments(prev => {
-              if(inputValue.length === 0) return prev;
 
               const currentComments = prev ?? [];
               const comment : CommentType = {
@@ -115,6 +119,7 @@ function AddCommentField({post} : AddCommentFieldProps){
               return [...currentComments, comment];
             })
             setInputValue('');
+            toast.success("Added comment")
           }}
           className="rounded-xl p-1 px-2 mt-1 bg-primary hover:bg-primary-hover"
         >

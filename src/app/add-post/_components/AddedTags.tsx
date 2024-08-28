@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import CloseIcon from '@mui/icons-material/Close';
 
 type Props = {
   addedTags: string[],
@@ -57,7 +58,9 @@ function Tag({initialValue, deleteTag, updateTagInList} : TagProps){
         }}
         className='bg-primary-light rodunded-0 w-24 focus:outline-0'
       />
-      <button className='ps-2' onClick={deleteTag}>x</button>
+      <button className='' onClick={deleteTag}>
+        <CloseIcon className="fill-gray-300 hover:fill-gray-500"/>
+      </button>
     </div>
   )
 }

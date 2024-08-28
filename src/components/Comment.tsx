@@ -9,6 +9,7 @@ import EditButton from "./ui/EditButton";
 import { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import useIsClient from "@/hooks/useIsClient";
+import { toast } from "sonner";
 
 
 export default function Comment({comment, onProfile} : {comment: CommentType, onProfile?: true}) {
@@ -85,11 +86,13 @@ function EditComment({comment, setEditState , setUserComments} : EditCommentProp
       <button 
         className="border p-1 px-2 mt-1 rounded-xl bg-primary hover:bg-primary-hover"
         onClick={()=>{
+          if(inputValue.length === 0) return;
+
+          toast.success("Comment edited");
           setEditState(false)
           setUserComments((prev)=>{
-            if(inputValue.length === 0) return prev;
-
             let currentComments = prev ?? [];
+            
             return currentComments.map((comm)=> comm.id===comment.id? {...comm, body: inputValue,} : comm);
           })
         }}

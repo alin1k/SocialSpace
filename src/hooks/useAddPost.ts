@@ -2,6 +2,7 @@ import { useUserPostsContext } from "@/context/user-posts";
 import { PostType } from "@/types/types";
 import generateUniqueId from "generate-unique-id";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function useAddPost(titleInputValue: string, bodyInputValue: string, addedTags: string[]){
   const {setUserPosts} = useUserPostsContext();
@@ -10,13 +11,16 @@ export default function useAddPost(titleInputValue: string, bodyInputValue: stri
 
   function addPost(){
 
-    if(titleInputValue.length === 0 || bodyInputValue.length === 0) return;
+    if(titleInputValue.length === 0 || bodyInputValue.length === 0) {
+      toast.error("You need to fill in all the fields")
+      return
+    };
 
     const post : PostType = {
       id: parseInt(generateUniqueId({length: 10,useLetters: false, })),
       title: titleInputValue,
       body: bodyInputValue,
-      tags: addedTags,
+      tags: addedTags.filter(tag=> tag.length),
       reactions: {
         likes: 0,
         dislikes: 0
@@ -27,10 +31,12 @@ export default function useAddPost(titleInputValue: string, bodyInputValue: stri
 
     setUserPosts(prev => {
       const currentUserPosts = prev ?? [];
-      return [...currentUserPosts, post]
+      return [post, ...currentUserPosts]
     })
 
     router.replace('/profile');
+
+    toast.success("Post added successfully")
   }
 
   return addPost
