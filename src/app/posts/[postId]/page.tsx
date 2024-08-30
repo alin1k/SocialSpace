@@ -18,12 +18,25 @@ export const generateMetadata = ({params} : Props) : Metadata => {
 
 export default async function PostById({params} : Props) {
   
-  const post : PostType = await getPostById(params.postId);
-  const {comments} : {comments: CommentType[]} = await getPostCommentsById(params.postId)
+  try {
+    const post : PostType = await getPostById(params.postId);
+    const {comments} : {comments: CommentType[]} = await getPostCommentsById(params.postId)
 
-  return(
-    <div className="w-full p-3">
-      <PostBody post={post} comments={comments}/>
-    </div>
-  )
+    return(
+        <div className="w-full p-3">
+          <PostBody post={post} comments={comments}/>
+        </div>
+      )
+  } catch (error) {
+    return (
+      <div className="w-full p-3">
+        <PostBody postId={parseInt(params.postId)}/>
+      </div>
+    )
+  }
+
+  
+  
+
+  
 }

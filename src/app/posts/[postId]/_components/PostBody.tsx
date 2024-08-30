@@ -1,38 +1,57 @@
 "use client"
 
+// types
 import { PostType, CommentType } from "@/types/types";
-import { useState} from "react";
+// icons
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import Comment from "../../../../components/Comment";
+//hooks
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Tag from "@/components/Tag";
-import LikeButton from "@/components/ui/LikeButton";
-import { useUserCommentsContext } from "@/context/comments";
-import generateUniqueId from "generate-unique-id";
 import useIsClient from "@/hooks/useIsClient";
 import useCurrentPostUserComments from "@/hooks/useCurrentPostUserComments";
+import { useUserCommentsContext } from "@/context/comments";
+//components
+import Comment from "../../../../components/Comment";
+import Tag from "@/components/Tag";
+import LikeButton from "@/components/ui/LikeButton";
+// ultis
+import generateUniqueId from "generate-unique-id";
 import { toast } from "sonner";
+import { useUserPostsContext } from "@/context/user-posts";
 
-export default function PostBody({post, comments} : {post: PostType, comments: CommentType[]}) {
+type Props = {
+  post?: PostType, 
+  comments?: CommentType[], 
+  postId?: number,
+}
+
+export default function PostBody({post, comments, postId} : Props) {
 
   const isClient = useIsClient();
   const router = useRouter();
+  const {userPosts} = useUserPostsContext();
+
+  if(post === undefined) {
+    [post] = userPosts.filter((userPost) => userPost.id === postId);
+    if(!post) return <p>Post not found!</p>
+  }
+  if(comments === undefined) comments = [];
 
   const currentPostUserComments = useCurrentPostUserComments(post);
 
   return (
     <div className="w-full">
       <button onClick={()=>router.back()} className="text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl">← Go back</button>
-      <p className="text-xl font-semibold leading-5 mt-5">{post.title}</p>
-      <p>by user{post.userId}</p>
-      <p className="mt-3">{post.body}</p>
+      <p className="text-xl font-semibold leading-5 mt-5">{post?.title}</p>
+      <p>by user{post?.userId}</p>
+      <p className="mt-3">{post?.body}</p>
 
       <div className="flex flex-row flex-wrap content-center gap-2 mt-3">
         <p>Tags:</p>
-        {post.tags.map((tag, index)=>
-          <Tag key={post.id.toString() + index.toString()}>{tag}</Tag>
+        {post?.tags.map((tag, index)=>
+          <Tag key={post?.id.toString() + index.toString()}>{tag}</Tag>
         )}
       </div>
 
@@ -40,7 +59,7 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
         {isClient && <LikeButton post={post}/>}
         <div className="flex flex-row content-center gap-1 flex-wrap mt-2">
           {isClient && <RemoveRedEyeOutlinedIcon/>}
-          <p className="">{post.views}</p>
+          <p className="">{post?.views}</p>
         </div>
       </div>
 
@@ -60,8 +79,6 @@ export default function PostBody({post, comments} : {post: PostType, comments: C
         )}
       </div>
 
-      {/* <hr className="my-4"/> */}
-
       <AddCommentField post={post}/>
 
     </div>
@@ -76,12 +93,13 @@ function AddCommentField({post} : AddCommentFieldProps){
 
   const [inputValue, setInputValue] = useState('')
   const {setUserComments} = useUserCommentsContext();
+  const isClient = useIsClient();
 
   return(
     <>
       <div className="border rounded-xl p-2 mt-4">
         <div>
-          <AccountCircleOutlinedIcon/>
+          {isClient && <AccountCircleOutlinedIcon/>}
           <p className="inline font-semibold ms-1">guest</p>
         </div>
         <input
