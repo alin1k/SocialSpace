@@ -9,9 +9,6 @@ Added posts and comments are not added to any database but stored inside localSt
 > [!NOTE]
 > Nav bar buttons are currently removed. They will be replaced by other buttons later on.
 
-> [!WARNING]
-> Clicking the 'see post' button on a user-added post will do nothing. Fix coming soon
-
 ## What needs to be added
 
 - See the post page of a user-added post
