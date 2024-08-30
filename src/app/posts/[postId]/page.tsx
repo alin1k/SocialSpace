@@ -24,7 +24,7 @@ export default async function PostById({params} : Props) {
 
     return(
         <div className="w-full p-3">
-          <PostBody post={post} comments={comments}/>
+          <PostBody post={post} comments={comments} postId={post.id}/>
         </div>
       )
   } catch (error) {
@@ -34,9 +34,4 @@ export default async function PostById({params} : Props) {
       </div>
     )
   }
-
-  
-  
-
-  
 }

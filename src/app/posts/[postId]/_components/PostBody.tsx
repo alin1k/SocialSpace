@@ -24,7 +24,7 @@ import { useUserPostsContext } from "@/context/user-posts";
 type Props = {
   post?: PostType, 
   comments?: CommentType[], 
-  postId?: number,
+  postId: number,
 }
 
 export default function PostBody({post, comments, postId} : Props) {
@@ -32,6 +32,7 @@ export default function PostBody({post, comments, postId} : Props) {
   const isClient = useIsClient();
   const router = useRouter();
   const {userPosts} = useUserPostsContext();
+  const currentPostUserComments = useCurrentPostUserComments(postId);
 
   if(post === undefined) {
     [post] = userPosts.filter((userPost) => userPost.id === postId);
@@ -39,7 +40,6 @@ export default function PostBody({post, comments, postId} : Props) {
   }
   if(comments === undefined) comments = [];
 
-  const currentPostUserComments = useCurrentPostUserComments(post);
 
   return (
     <div className="w-full">
