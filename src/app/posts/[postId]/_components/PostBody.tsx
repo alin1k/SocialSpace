@@ -20,6 +20,7 @@ import LikeButton from "@/components/ui/LikeButton";
 import generateUniqueId from "generate-unique-id";
 import { toast } from "sonner";
 import { useUserPostsContext } from "@/context/user-posts";
+import PostNotFound from "./PostNotFound";
 
 type Props = {
   post?: PostType, 
@@ -36,7 +37,7 @@ export default function PostBody({post, comments, postId} : Props) {
 
   if(post === undefined) {
     [post] = userPosts.filter((userPost) => userPost.id === postId);
-    if(!post) return <p>Post not found!</p>
+    if(!post) return <PostNotFound/>
   }
   if(comments === undefined) comments = [];
 
