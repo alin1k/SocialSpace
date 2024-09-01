@@ -21,6 +21,7 @@ import generateUniqueId from "generate-unique-id";
 import { toast } from "sonner";
 import { useUserPostsContext } from "@/context/user-posts";
 import PostNotFound from "./PostNotFound";
+import EditButton from "@/components/ui/EditButton";
 
 type Props = {
   post?: PostType, 
@@ -30,10 +31,22 @@ type Props = {
 
 export default function PostBody({post, comments, postId} : Props) {
 
+  const userId = 121212;
+
   const isClient = useIsClient();
   const router = useRouter();
-  const {userPosts} = useUserPostsContext();
+  const {userPosts, setUserPosts} = useUserPostsContext();
   const currentPostUserComments = useCurrentPostUserComments(postId);
+
+  const [editState, setEditState] = useState(false);
+
+  function handleDeletePost(){
+    router.replace('/profile')
+    setUserPosts(prev=>{
+      const currentPosts = prev ?? [];
+      return currentPosts.filter((currPost) => currPost.id !== post?.id);
+    })
+  }
 
   if(post === undefined) {
     [post] = userPosts.filter((userPost) => userPost.id === postId);
@@ -43,7 +56,16 @@ export default function PostBody({post, comments, postId} : Props) {
 
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
+
+      {post.userId === userId? (
+        <div className="absolute top-0 right-0">
+          <EditButton deleteAction={handleDeletePost} editAction={setEditState}/>
+        </div>
+      ) :
+        <></>
+      }
+
       <button onClick={()=>router.back()} className="text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl">← Go back</button>
       <p className="text-xl font-semibold leading-5 mt-5">{post?.title}</p>
       <p>by user{post?.userId}</p>
