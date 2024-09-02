@@ -6,7 +6,7 @@ import { useState } from 'react'
 import useAddPost from '@/hooks/useAddPost';
 import TitleInput from './_components/TitleInput';
 import PostBodyInput from './_components/PostBodyInput';
-import AddedTags from './_components/AddedTags';
+import AddedTags from '@/components/AddedTags';
 import { toast } from 'sonner';
 
 export default function AddPostPage() {
