@@ -11,7 +11,6 @@ Added posts and comments are not added to any database but stored inside localSt
 
 ## What needs to be added
 
-- Edit and delete posts
 - Searching by user-created tags
 - Adding buttons to the navbar
 
