@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { useUserPostsContext } from "@/context/user-posts";
 import PostNotFound from "./PostNotFound";
 import EditButton from "@/components/ui/EditButton";
+import EditPost from "./EditPost";
 
 type Props = {
   post?: PostType, 
@@ -66,25 +67,33 @@ export default function PostBody({post, comments, postId} : Props) {
         <></>
       }
 
-      <button onClick={()=>router.back()} className="text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl">← Go back</button>
-      <p className="text-xl font-semibold leading-5 mt-5">{post?.title}</p>
-      <p>by user{post?.userId}</p>
-      <p className="mt-3">{post?.body}</p>
+      <button onClick={()=>router.back()} className="mb-5 text-xs text-primary-dark p-1 px-2 hover:bg-gray-100 rounded-xl">← Go back</button>
+      
+      {editState? 
+        <EditPost post={post} setEditState={setEditState}/>
+        :
+        <div>
+          <p className="text-xl font-semibold leading-5">{post?.title}</p>
+          <p>by user{post?.userId}</p>
+          <p className="mt-3">{post?.body}</p>
 
-      <div className="flex flex-row flex-wrap content-center gap-2 mt-3">
-        <p>Tags:</p>
-        {post?.tags.map((tag, index)=>
-          <Tag key={post?.id.toString() + index.toString()}>{tag}</Tag>
-        )}
-      </div>
+          <div className="flex flex-row flex-wrap content-center gap-2 mt-3">
+            <p>Tags:</p>
+            {post?.tags.map((tag, index)=>
+              <Tag key={post?.id.toString() + index.toString()}>{tag}</Tag>
+            )}
+          </div>
 
-      <div className="flex flex-row gap-4 mt-3">
-        {isClient && <LikeButton post={post}/>}
-        <div className="flex flex-row content-center gap-1 flex-wrap mt-2">
-          {isClient && <RemoveRedEyeOutlinedIcon/>}
-          <p className="">{post?.views}</p>
+          <div className="flex flex-row gap-4 mt-3">
+            {isClient && <LikeButton post={post}/>}
+            <div className="flex flex-row content-center gap-1 flex-wrap mt-2">
+              {isClient && <RemoveRedEyeOutlinedIcon/>}
+              <p className="">{post?.views}</p>
+            </div>
+          </div>
         </div>
-      </div>
+      }
+      
 
       <hr className="my-3"/>  
 
