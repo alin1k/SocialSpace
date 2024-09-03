@@ -9,7 +9,6 @@ export default function useLikeButton(post : PostType){
 
   useEffect(()=>{
     setLiked(isPostLiked(likedPosts, post.id));
-    localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
   }, [likedPosts])
 
   function handleClick(){
