@@ -8,22 +8,17 @@ import TitleInput from './_components/TitleInput';
 import PostBodyInput from './_components/PostBodyInput';
 import AddedTags from '@/components/AddedTags';
 import { toast } from 'sonner';
+import useAddedTags from '@/hooks/useAddedTags';
 
 export default function AddPostPage() {
-
-  const [addedTags, setAddedTags] = useState<string[]>([]);
+  
   const [titleInputValue, setTitleInputValue] = useState('');
   const [bodyInputValue, setBodyInputValue] = useState('');
 
+  const {addedTags, setAddedTags, addTag} = useAddedTags([]);
+  
   const addPost = useAddPost(titleInputValue, bodyInputValue, addedTags);
-
-  const addTag = ()=>{
-    if(addedTags.length === 3) toast.error("Tag limit reached", {duration: 1000})
-    setAddedTags(prev=>{
-      if(prev.length < 3) return [...prev, '']
-      return prev
-    })
-  }
+  
 
   return (
     <div className="border rounded-xl">

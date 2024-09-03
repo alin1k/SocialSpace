@@ -6,6 +6,7 @@ import { PostType } from "@/types/types";
 import { useUserPostsContext } from "@/context/user-posts";
 import { useLikedPostsContext } from "@/context/liked-posts";
 import { isPostLiked } from "@/lib/utils";
+import useAddedTags from "@/hooks/useAddedTags";
 
 type Props = {
   post: PostType,
@@ -28,20 +29,9 @@ export default function EditPost({post, setEditState} : Props) {
     setBodyInputValue(body);
   }, [body]);
 
-  const [addedTags, setAddedTags] = useState(tags);
-  useEffect(()=>{
-    setAddedTags(tags)
-  }, [tags]);
+  const {addedTags, setAddedTags, addTag} = useAddedTags(tags);
 
   const {likedPosts, setLikedPosts} = useLikedPostsContext();
-
-  const addTag = ()=>{
-    if(addedTags.length === 3) toast.error("Tag limit reached", {duration: 1000})
-    setAddedTags(prev=>{
-      if(prev.length < 3) return [...prev, '']
-      return prev
-    })
-  }
 
   const updatePost = ()=>{
     if(titleInputValue.length === 0){
