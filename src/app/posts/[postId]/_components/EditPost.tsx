@@ -4,6 +4,8 @@ import { toast } from "sonner";
 import AddedTags from "@/components/AddedTags";
 import { PostType } from "@/types/types";
 import { useUserPostsContext } from "@/context/user-posts";
+import { useLikedPostsContext } from "@/context/liked-posts";
+import { isPostLiked } from "@/lib/utils";
 
 type Props = {
   post: PostType,
@@ -31,6 +33,8 @@ export default function EditPost({post, setEditState} : Props) {
     setAddedTags(tags)
   }, [tags]);
 
+  const {likedPosts, setLikedPosts} = useLikedPostsContext();
+
   const addTag = ()=>{
     if(addedTags.length === 3) toast.error("Tag limit reached", {duration: 1000})
     setAddedTags(prev=>{
@@ -39,7 +43,7 @@ export default function EditPost({post, setEditState} : Props) {
     })
   }
 
-  const editPost = ()=>{
+  const updatePost = ()=>{
     if(titleInputValue.length === 0){
       toast.error("Title should not be empty");
       return
@@ -57,6 +61,10 @@ export default function EditPost({post, setEditState} : Props) {
       tags: addedTags.filter(tag=> tag.length)
     }
     setUserPosts(prev=> prev?.map((userPost)=> userPost.id === post.id? newPost : userPost))
+
+    if(isPostLiked(likedPosts, post.id)){
+      setLikedPosts(prev=> prev?.map(likedPost => likedPost.id === post.id? newPost : likedPost))
+    }
   }
 
   return (
@@ -98,7 +106,7 @@ export default function EditPost({post, setEditState} : Props) {
       </div>
       <button 
         className="p-1 px-2 mt-2 bg-primary hover:bg-primary-hover rounded-xl"
-        onClick={editPost}
+        onClick={updatePost}
       >
         Confirm edit
       </button>

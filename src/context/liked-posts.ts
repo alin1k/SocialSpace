@@ -1,5 +1,5 @@
 import { LikedPostsContextType } from "@/types/types";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 
 export const LikedPostsContext = createContext<LikedPostsContextType>([undefined, undefined])
 
@@ -13,6 +13,10 @@ export function useLikedPostsContext(){
   if(setLikedPosts === undefined){
     throw new Error("setLikedPosts must be defined")
   }
+
+  useEffect(()=>{
+    localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
+  }, [likedPosts])
 
   return {likedPosts, setLikedPosts};
 }
