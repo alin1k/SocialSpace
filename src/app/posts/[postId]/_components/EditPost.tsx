@@ -1,12 +1,8 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import { toast } from "sonner";
 import AddedTags from "@/components/AddedTags";
 import { PostType } from "@/types/types";
-import { useUserPostsContext } from "@/context/user-posts";
-import { useLikedPostsContext } from "@/context/liked-posts";
-import { isPostLiked } from "@/lib/utils";
-import useAddedTags from "@/hooks/useAddedTags";
+import useEditPost from "@/hooks/useEditPost";
 
 type Props = {
   post: PostType,
@@ -15,47 +11,16 @@ type Props = {
 
 export default function EditPost({post, setEditState} : Props) {
 
-  const {title, body, tags} = post;
-
-  const {setUserPosts} = useUserPostsContext();
-
-  const [titleInputValue, setTitleInputValue] = useState(title);
-  useEffect(()=>{
-    setTitleInputValue(title);
-  }, [title])
-
-  const [bodyInputValue, setBodyInputValue] = useState(body);
-  useEffect(()=>{
-    setBodyInputValue(body);
-  }, [body]);
-
-  const {addedTags, setAddedTags, addTag} = useAddedTags(tags);
-
-  const {likedPosts, setLikedPosts} = useLikedPostsContext();
-
-  const updatePost = ()=>{
-    if(titleInputValue.length === 0){
-      toast.error("Title should not be empty");
-      return
-    }
-    if(bodyInputValue.length === 0){
-      toast.error("Post body should not be empty");
-      return
-    }
-    toast.success("Post edited");
-    setEditState(false)
-    const newPost : PostType = {
-      ...post, 
-      title: titleInputValue, 
-      body: bodyInputValue, 
-      tags: addedTags.filter(tag=> tag.length)
-    }
-    setUserPosts(prev=> prev?.map((userPost)=> userPost.id === post.id? newPost : userPost))
-
-    if(isPostLiked(likedPosts, post.id)){
-      setLikedPosts(prev=> prev?.map(likedPost => likedPost.id === post.id? newPost : likedPost))
-    }
-  }
+  const { 
+    titleInputValue, 
+    setTitleInputValue, 
+    bodyInputValue, 
+    setBodyInputValue,
+    addedTags,
+    setAddedTags,
+    addTag,
+    updatePost
+  } = useEditPost(post, setEditState);
 
   return (
     <div>
